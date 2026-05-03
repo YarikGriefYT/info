@@ -139,6 +139,138 @@
             color: #ffffff;
         }
 
+.link-item span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .link-item.telegram i { color: #2AABEE; }
+        .link-item.vk i { color: #4A76A8; }
+        .link-item.youtube i { color: #FF0000; }
+
+        /* Блок "Проекты" */
+        .projects-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .projects-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .projects-card i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .projects-card .info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .projects-card .info p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* YouTube disabled */
+        .link-item.disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+        .link-item.disabled:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 380px) {
+            .profile-text-link h1 { font-size: 1.4rem; }
+            .avatar-link { width: 60px; height: 60px; }
+            .grid-container { gap: 8px; }
+            .link-item { padding: 14px 0; }
+            .link-item i { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Скрытый аудиоплеер -->
+      <audio id="bg-music" loop src="ltzyarik.mp3" preload="auto"></audio>
+
+
+    <div class="container">
+        <!-- Профиль -->
+        <div class="profile-card">
+            <!-- Аватарка-кнопка -->
+            <a href="https://t.me/kirismall" target="_blank" class="avatar-link">
+                <img src="https://i.pinimg.com/280x280_RS/9c/59/f1/9c59f1aaafc6c23c89d2a2b9f600b384.jpg" alt="Безликий">
+            </a>
+
+            <!-- Ник и юзернейм теперь тоже ссылка на t.me/kirismall -->
+            <a href="https://t.me/kirismall" target="_blank" class="profile-text-link">
+                <h1>Безликий</h1>
+                <div class="username">@kirismall</div>
+            </a>
+        </div>
+
+        <!-- Сетка соцсетей -->
+        <div class="grid-container">
+            <!-- ТГК (Telegram канал) -->
+            <a href="https://t.me/news_yarik" target="_blank" class="link-item telegram">
+                <i class="fab fa-telegram"></i>
+                <span>тгк</span>
+            </a>
+
+            <!-- ВК -->
+            <a href="https://vk.com/show_yarik" target="_blank" class="link-item vk">
+                <i class="fab fa-vk"></i>
+                <span>вк</span>
+            </a>
+        </div>
+
+        <!-- Проекты -->
+        <a href="https://t.me/projectsyarikru" target="_blank" class="projects-card">
+            <i class="fas fa-code-branch"></i>
+            <div class="info">
+                <h3>проекты</h3>
+                <p>посмотри мои последние проекты</p>
+            </div>
+        </a>
+
+        <!-- YouTube -->
+        <a href="#" class="link-item disabled youtube" style="border-radius: 24px; padding: 16px; flex-direction: row; gap: 12px; justify-content: center; margin-top: 16px;">
+            <i class="fab fa-youtube"></i>
+            <span>YouTube · В разработке</span>
+        </a>
+    </div>            cursor: pointer;
+        }
+
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-item i {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
         .link-item span {
             font-size: 0.8rem;
             font-weight: 500;

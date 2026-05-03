@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Безликий | Био-ссылки</title>
+    <!-- Иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Карточка профиля */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* Аватарка — ссылка */
+        .avatar-link {
+            display: block;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .avatar-link:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .avatar-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Текст профиля — теперь тоже ссылка */
+        .profile-text-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.2s ease;
+        }
+
+        .profile-text-link:hover {
+            opacity: 0.8;
+        }
+
+        .profile-text-link h1 {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .profile-text-link .username {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* Сетка кнопок */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .link-item {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 18px 0;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            color: white;
+            cursor: pointer;
+        }
+
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-item i {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .link-item span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .link-item.telegram i { color: #2AABEE; }
+        .link-item.vk i { color: #4A76A8; }
+        .link-item.youtube i { color: #FF0000; }
+
+        /* Блок "Проекты" */
+        .projects-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .projects-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .projects-card i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .projects-card .info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .projects-card .info p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* YouTube disabled */
+        .link-item.disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+        .link-item.disabled:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 380px) {
+            .profile-text-link h1 { font-size: 1.4rem; }
+            .avatar-link { width: 60px; height: 60px; }
+            .grid-container { gap: 8px; }
+            .link-item { padding: 14px 0; }
+            .link-item i { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Скрытый аудиоплеер -->
+    <audio id="bg-music" loop>
+        <!-- Прямая ссылка на песню -->
+        <source src="https://eu.hitmoz.com/get/music/20260109/whitek3d_-_Tvorcheskijj_pizdec_80630872.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+
+    <div class="container">
+        <!-- Профиль -->
+        <div class="profile-card">
+            <!-- Аватарка-кнопка -->
+            <a href="https://t.me/kirismall" target="_blank" class="avatar-link">
+                <img src="https://i.pinimg.com/280x280_RS/9c/59/f1/9c59f1aaafc6c23c89d2a2b9f600b384.jpg" alt="Безликий">
+            </a>
+
+            <!-- Ник и юзернейм теперь тоже ссылка на t.me/kirismall -->
+            <a href="https://t.me/kirismall" target="_blank" class="profile-text-link">
+                <h1>Безликий</h1>
+                <div class="username">@kirismall</div>
+            </a>
+        </div>
+
+        <!-- Сетка соцсетей -->
+        <div class="grid-container">
+            <!-- ТГК (Telegram канал) -->
+            <a href="https://t.me/news_yarik" target="_blank" class="link-item telegram">
+                <i class="fab fa-telegram"></i>
+                <span>тгк</span>
+            </a>
+
+            <!-- ВК -->
+            <a href="https://vk.com/show_yarik" target="_blank" class="link-item vk">
+                <i class="fab fa-vk"></i>
+                <span>вк</span>
+            </a>
+        </div>
+
+        <!-- Проекты -->
+        <a href="https://t.me/projectsyarikru" target="_blank" class="projects-card">
+            <i class="fas fa-code-branch"></i>
+            <div class="info">
+                <h3>проекты</h3>
+                <p>посмотри мои последние проекты</p>
+            </div>
+        </a>
+
+        <!-- YouTube -->
+        <a href="#" class="link-item disabled youtube" style="border-radius: 24px; padding: 16px; flex-direction: row; gap: 12px; justify-content: center; margin-top: 16px;">
+            <i class="fab fa-youtube"></i>
+            <span>YouTube · В разработке</span>
+        </a>
+    </div>
+
+    <script>
+        // Музыка начнёт играть после первого клика пользователя
+        document.addEventListener('click', function playMusic() {
+            const audio = document.getElementById('bg-music');
+            if (audio.paused) {
+                audio.play().catch(function(error) {
+                    console.log('Не удалось воспроизвести музыку:', error);
+                });
+            }
+            // Удаляем обработчик после первого клика, чтобы не запускать много раз
+            document.removeEventListener('click', playMusic);
+        });
+    </script>
+
+</body>
+</html>

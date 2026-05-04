@@ -24,11 +24,30 @@
       background: url('https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
       background-size: cover;
       padding: 20px;
+      position: relative;
+    }
+
+    /* Анимированный оверлей с частицами */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 95, 109, 0.05) 0%, transparent 70%);
+      animation: pulseGlow 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
     }
 
     .container {
       width: 100%;
       max-width: 400px;
+      position: relative;
+      z-index: 1;
     }
 
     /* Карточка профиля */
@@ -44,11 +63,13 @@
       align-items: center;
       gap: 16px;
       transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
     .profile-card:hover {
       background: rgba(255, 255, 255, 0.12);
       transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
     }
 
     /* Аватарка — ссылка */
@@ -60,13 +81,30 @@
       border: 2px solid rgba(255, 255, 255, 0.3);
       flex-shrink: 0;
       overflow: hidden;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      position: relative;
+    }
+
+    .avatar-link::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF9068, #FF5F6D, #D16BA5);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .avatar-link:hover {
-      transform: scale(1.05);
-      border-color: rgba(255, 255, 255, 0.7);
+      transform: scale(1.08);
+      border-color: #FF5F6D;
+      box-shadow: 0 0 25px rgba(255, 95, 109, 0.4);
+    }
+
+    .avatar-link:hover::before {
+      opacity: 1;
     }
 
     .avatar-link img {
@@ -75,17 +113,17 @@
       object-fit: cover;
     }
 
-    /* Текст профиля — теперь тоже ссылка */
+    /* Текст профиля */
     .profile-text-link {
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .profile-text-link:hover {
-      opacity: 0.8;
+      transform: translateX(4px);
     }
 
     .profile-text-link h1 {
@@ -93,6 +131,10 @@
       font-size: 1.6rem;
       font-weight: 700;
       line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 0%, #FF9068 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .profile-text-link .username {
@@ -100,6 +142,11 @@
       font-size: 0.9rem;
       font-weight: 400;
       margin-top: 2px;
+      transition: color 0.3s ease;
+    }
+
+    .profile-text-link:hover .username {
+      color: rgba(255, 255, 255, 0.9);
     }
 
     /* Сетка кнопок */
@@ -122,21 +169,45 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
       color: white;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .link-item:hover::before {
+      opacity: 1;
     }
 
     .link-item:hover {
       background: rgba(255, 255, 255, 0.18);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .link-item:active {
+      transform: scale(0.96);
     }
 
     .link-item i {
       font-size: 1.8rem;
       margin-bottom: 8px;
       color: #ffffff;
+      transition: transform 0.3s ease;
+    }
+
+    .link-item:hover i {
+      transform: scale(1.2);
     }
 
     .link-item span {
@@ -148,6 +219,31 @@
     .link-item.telegram i { color: #2AABEE; }
     .link-item.vk i { color: #4A76A8; }
     .link-item.youtube i { color: #FF0000; }
+
+    /* Анимированная кнопка YouTube */
+    .link-item.youtube {
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05));
+      border-color: rgba(255, 0, 0, 0.2);
+    }
+
+    .link-item.youtube:hover {
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.25), rgba(255, 0, 0, 0.1));
+      border-color: #FF0000;
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+    }
+
+    .link-item.youtube i {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .link-item.youtube:hover i {
+      animation: pulse 0.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
 
     /* Блок "Проекты" */
     .projects-card {
@@ -164,16 +260,38 @@
       transition: all 0.3s ease;
       text-decoration: none;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .projects-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 144, 104, 0.1), rgba(255, 95, 109, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .projects-card:hover::before {
+      opacity: 1;
     }
 
     .projects-card:hover {
       background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 144, 104, 0.4);
     }
 
     .projects-card i {
       font-size: 1.8rem;
       color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .projects-card:hover i {
+      transform: rotate(20deg) scale(1.1);
     }
 
     .projects-card .info h3 {
@@ -186,15 +304,64 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
-    /* YouTube disabled */
-    .link-item.disabled {
-      opacity: 0.7;
-      cursor: default;
+    /* YouTube кнопка внизу (активная, красивая) */
+    .youtube-full {
+      border-radius: 24px;
+      padding: 16px;
+      flex-direction: row;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 16px;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05));
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .link-item.disabled:hover {
-      background: rgba(255, 255, 255, 0.08);
-      transform: none;
-      box-shadow: none;
+
+    .youtube-full::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .youtube-full:hover::before {
+      opacity: 1;
+    }
+
+    .youtube-full:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+      border-color: #FF0000;
+    }
+
+    .youtube-full:active {
+      transform: scale(0.96);
+    }
+
+    .youtube-full i {
+      font-size: 1.8rem;
+      color: #FF0000;
+      animation: pulse 2s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .youtube-full:hover i {
+      animation: pulse 0.8s ease-in-out infinite;
+    }
+
+    .youtube-full span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
     }
 
     @media (max-width: 380px) {
@@ -204,6 +371,8 @@
       .link-item { padding: 14px 0; }
       .link-item i { font-size: 1.5rem; }
     }
+
+    /* Экран старта */
     #start-screen {
       position: fixed;
       inset: 0;
@@ -213,7 +382,7 @@
       justify-content: center;
       z-index: 9999;
       cursor: pointer;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.6s ease;
     }
 
     #start-screen.hidden {
@@ -221,23 +390,68 @@
       pointer-events: none;
     }
 
+    .start-content {
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+    }
+
     .start-content h2 {
       color: white;
       font-size: 1.2rem;
       font-weight: 500;
       opacity: 0.8;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Плавающие частицы (декоративные) */
+    .particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: float 15s infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-100px) rotate(180deg); opacity: 0.8; }
     }
   </style>
 </head>
 <body>
+
+<!-- Декоративные частицы -->
+<div class="particle" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+<div class="particle" style="left: 30%; top: 60%; animation-delay: 2s;"></div>
+<div class="particle" style="left: 70%; top: 30%; animation-delay: 4s;"></div>
+<div class="particle" style="left: 85%; top: 70%; animation-delay: 6s;"></div>
+<div class="particle" style="left: 50%; top: 10%; animation-delay: 8s;"></div>
+
+<!-- Экран "Нажми, чтобы войти" -->
 <div id="start-screen">
   <div class="start-content">
     <h2>Нажми, чтобы войти</h2>
   </div>
 </div>
 
-<!-- Скрытый аудиоплеер -->
-<audio id="bg-music" loop src="ltzyarik.mp3" preload="auto"></audio>
+<!-- Скрытый аудиоплеер с вашей песней -->
+<audio id="bg-music" loop preload="auto">
+  <source src="ltzyarik.mp3" type="audio/mpeg">
+</audio>
 
 <div class="container">
   <!-- Профиль -->
@@ -278,10 +492,10 @@
     </div>
   </a>
 
-  <!-- YouTube -->
-  <a href="#" class="link-item disabled youtube" style="border-radius: 24px; padding: 16px; flex-direction: row; gap: 12px; justify-content: center; margin-top: 16px;">
+  <!-- YouTube - теперь активная ссылка -->
+  <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full">
     <i class="fab fa-youtube"></i>
-    <span>YouTube · В разработке</span>
+    <span>YouTube</span>
   </a>
 </div>
 
@@ -292,9 +506,11 @@
   startScreen.addEventListener('click', () => {
     startScreen.classList.add('hidden');
 
-
+    // Запускаем музыку после клика
     if (audio) {
-      audio.play().catch(() => {});
+      audio.play().catch((error) => {
+        console.log('Ошибка воспроизведения:', error);
+      });
     }
   });
 </script>

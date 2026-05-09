@@ -14,6 +14,8 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
+      /* Курсор — кружок */
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='rgba(255,215,0,0.15)' stroke='%23FFD700' stroke-width='2.5'/><circle cx='16' cy='16' r='6' fill='%23FFD700'/></svg>") 16 16, auto;
     }
 
     body {
@@ -21,11 +23,25 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      /* ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШУ ПРЯМУЮ ССЫЛКУ С КАРТИНКОЙ */
       background: url('35f696dd807103ed5194e4d64dba8bef.jpg') no-repeat center center fixed;
       background-size: cover;
       padding: 20px;
       position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 200, 100, 0.05) 0%, transparent 70%);
+      animation: pulseGlow 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
     }
 
     .container {
@@ -35,8 +51,31 @@
       z-index: 1;
     }
 
-    /* Карточка профиля */
-    .profile-card {
+    /* Анимация появления элементов */
+    .animate-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .animate-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Задержки для последовательного появления */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* Вся карточка профиля — одна ссылка */
+    .profile-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -44,22 +83,26 @@
       border-radius: 24px;
       padding: 20px;
       margin-bottom: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       display: flex;
       align-items: center;
       gap: 16px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
     }
 
-    .profile-card:hover {
+    .profile-link:hover {
       background: rgba(0, 0, 0, 0.5);
       transform: translateY(-2px);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
 
-    /* Аватарка — ссылка */
-    .avatar-link {
-      display: block;
+    .profile-link:active {
+      transform: scale(0.98);
+    }
+
+    /* Аватарка */
+    .avatar {
       width: 70px;
       height: 70px;
       border-radius: 50%;
@@ -67,56 +110,33 @@
       flex-shrink: 0;
       overflow: hidden;
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
       position: relative;
     }
 
-    .avatar-link::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #FF9068, #FF5F6D, #D16BA5);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .avatar:hover {
+      transform: scale(1.05);
+      border-color: #FFD700;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
     }
 
-    .avatar-link:hover {
-      transform: scale(1.08);
-      border-color: #FF5F6D;
-      box-shadow: 0 0 25px rgba(255, 95, 109, 0.4);
-    }
-
-    .avatar-link:hover::before {
-      opacity: 1;
-    }
-
-    .avatar-link img {
+    .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
     /* Текст профиля */
-    .profile-text-link {
-      text-decoration: none;
-      color: inherit;
+    .profile-info {
       display: flex;
       flex-direction: column;
-      transition: all 0.3s ease;
     }
 
-    .profile-text-link:hover {
-      transform: translateX(4px);
-    }
-
-    .profile-text-link h1 {
-      color: #ffffff;
+    .profile-info h1 {
       font-size: 1.6rem;
       font-weight: 700;
       line-height: 1.2;
-      background: linear-gradient(135deg, #ffffff 0%, #FFD700 100%);
+      /* Фиолетовый градиент */
+      background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -125,22 +145,17 @@
       gap: 10px;
     }
 
-    .profile-text-link .username {
+    .profile-info .username {
       color: rgba(255, 255, 255, 0.8);
       font-size: 0.9rem;
       font-weight: 400;
       margin-top: 2px;
-      transition: color 0.3s ease;
-    }
-
-    .profile-text-link:hover .username {
-      color: rgba(255, 255, 255, 1);
     }
 
     /* Сетка кнопок */
     .grid-container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 12px;
       margin-bottom: 16px;
     }
@@ -206,6 +221,7 @@
 
     .link-item.telegram i { color: #2AABEE; }
     .link-item.vk i { color: #4A76A8; }
+    .link-item.tiktok i { color: #FF0050; }
     .link-item.youtube i { color: #FF0000; }
 
     /* Блок "Проекты" */
@@ -267,7 +283,7 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
-    /* YouTube кнопка внизу (активная, красивая) */
+    /* YouTube кнопка внизу */
     .youtube-full {
       border-radius: 24px;
       padding: 16px;
@@ -376,8 +392,8 @@
     }
 
     @media (max-width: 380px) {
-      .profile-text-link h1 { font-size: 1.4rem; }
-      .avatar-link { width: 60px; height: 60px; }
+      .profile-info h1 { font-size: 1.4rem; }
+      .avatar { width: 60px; height: 60px; }
       .grid-container { gap: 8px; }
       .link-item { padding: 14px 0; }
       .link-item i { font-size: 1.5rem; }
@@ -454,38 +470,36 @@
 
 <div class="container">
   <!-- Профиль -->
-  <div class="profile-card">
-    <!-- Аватарка-кнопка -->
-    <a href="https://t.me/kirismall" target="_blank" class="avatar-link">
+  <a href="https://t.me/kirismall" target="_blank" class="profile-link animate-item delay-1" id="profile-item">
+    <div class="avatar">
       <img src="https://i.pinimg.com/280x280_RS/9c/59/f1/9c59f1aaafc6c23c89d2a2b9f600b384.jpg" alt="Безликий">
-    </a>
-
-    <!-- Ник и юзернейм теперь тоже ссылка на t.me/kirismall -->
-    <a href="https://t.me/kirismall" target="_blank" class="profile-text-link">
-      <h1>
-        Безликий
-      </h1>
+    </div>
+    <div class="profile-info">
+      <h1>Безликий</h1>
       <div class="username">@kirismall</div>
-    </a>
-  </div>
+    </div>
+  </a>
 
   <!-- Сетка соцсетей -->
   <div class="grid-container">
-    <!-- ТГК (Telegram канал) -->
-    <a href="https://t.me/news_yarik" target="_blank" class="link-item telegram">
+    <a href="https://t.me/news_yarik" target="_blank" class="link-item telegram animate-item delay-2" id="tgk-item">
       <i class="fab fa-telegram"></i>
       <span>тгк</span>
     </a>
 
-    <!-- ВК -->
-    <a href="https://vk.com/show_yarik" target="_blank" class="link-item vk">
+    <a href="https://tiktok.com/@ltz_yarik" target="_blank" class="link-item tiktok animate-item delay-3" id="tiktok-item">
+      <i class="fab fa-tiktok"></i>
+      <span>тикток</span>
+    </a>
+
+    <a href="https://vk.com/show_yarik" target="_blank" class="link-item vk animate-item delay-4" id="vk-item">
       <i class="fab fa-vk"></i>
       <span>вк</span>
     </a>
   </div>
 
   <!-- Проекты -->
-  <a href="https://t.me/projectsyarikru" target="_blank" class="projects-card">
+  <a href="https://t.me/projectsyarikru" target="_blank" class="projects-card animate-item delay-5" id="projects-item">
     <i class="fas fa-code-branch"></i>
     <div class="info">
       <h3>проекты</h3>
@@ -493,8 +507,8 @@
     </div>
   </a>
 
-  <!-- YouTube - активная ссылка -->
-  <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full">
+  <!-- YouTube -->
+  <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full animate-item delay-6" id="youtube-item">
     <i class="fab fa-youtube"></i>
     <span>YouTube</span>
   </a>
@@ -505,9 +519,13 @@
   const audio = document.getElementById('bg-music');
   const musicToggle = document.getElementById('music-toggle');
 
+  // Элементы для анимации
+  const animatedItems = document.querySelectorAll('.animate-item');
+
   startScreen.addEventListener('click', () => {
     startScreen.classList.add('hidden');
 
+    // Запускаем музыку
     if (audio) {
       audio.play().then(() => {
         musicToggle.innerHTML = '<i class="fas fa-music"></i>';
@@ -516,6 +534,13 @@
         console.log('Ошибка воспроизведения:', error);
       });
     }
+
+    // Активируем анимацию появления элементов
+    animatedItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add('visible');
+      }, 100 + (index * 100)); // Каждый следующий элемент появляется на 100мс позже
+    });
   });
 
   musicToggle.addEventListener('click', (e) => {

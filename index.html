@@ -21,26 +21,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: url('https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+      /* ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШУ ПРЯМУЮ ССЫЛКУ С КАРТИНКОЙ */
+      background: url('https://pin.it/23I161ZG1') no-repeat center center fixed;
       background-size: cover;
       padding: 20px;
       position: relative;
-    }
-
-    /* Анимированный оверлей с частицами */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 95, 109, 0.05) 0%, transparent 70%);
-      animation: pulseGlow 4s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.1); }
     }
 
     .container {
@@ -52,9 +37,9 @@
 
     /* Карточка профиля */
     .profile-card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 24px;
       padding: 20px;
@@ -63,13 +48,13 @@
       align-items: center;
       gap: 16px;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .profile-card:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.5);
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
 
     /* Аватарка — ссылка */
@@ -131,14 +116,17 @@
       font-size: 1.6rem;
       font-weight: 700;
       line-height: 1.2;
-      background: linear-gradient(135deg, #ffffff 0%, #FF9068 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #FFD700 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .profile-text-link .username {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 0.9rem;
       font-weight: 400;
       margin-top: 2px;
@@ -146,7 +134,7 @@
     }
 
     .profile-text-link:hover .username {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 1);
     }
 
     /* Сетка кнопок */
@@ -158,7 +146,7 @@
     }
 
     .link-item {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -190,9 +178,9 @@
     }
 
     .link-item:hover {
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.5);
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
 
     .link-item:active {
@@ -220,34 +208,9 @@
     .link-item.vk i { color: #4A76A8; }
     .link-item.youtube i { color: #FF0000; }
 
-    /* Анимированная кнопка YouTube */
-    .link-item.youtube {
-      background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05));
-      border-color: rgba(255, 0, 0, 0.2);
-    }
-
-    .link-item.youtube:hover {
-      background: linear-gradient(135deg, rgba(255, 0, 0, 0.25), rgba(255, 0, 0, 0.1));
-      border-color: #FF0000;
-      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
-    }
-
-    .link-item.youtube i {
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    .link-item.youtube:hover i {
-      animation: pulse 0.8s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
     /* Блок "Проекты" */
     .projects-card {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -268,7 +231,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255, 144, 104, 0.1), rgba(255, 95, 109, 0.1));
+      background: linear-gradient(135deg, rgba(255, 200, 100, 0.1), rgba(255, 150, 50, 0.1));
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -278,10 +241,10 @@
     }
 
     .projects-card:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.5);
       transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 144, 104, 0.4);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 200, 100, 0.4);
     }
 
     .projects-card i {
@@ -313,7 +276,8 @@
       justify-content: center;
       margin-top: 16px;
       width: 100%;
-      background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05));
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 0, 0, 0.2);
       text-decoration: none;
       display: flex;
@@ -364,12 +328,66 @@
       letter-spacing: 0.3px;
     }
 
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Кнопка управления музыкой */
+    .music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .music-control:hover {
+      background: rgba(0, 0, 0, 0.7);
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .music-control:active {
+      transform: scale(0.9);
+    }
+
+    .music-control.muted {
+      background: rgba(255, 0, 0, 0.2);
+      border-color: rgba(255, 0, 0, 0.3);
+    }
+
+    .music-control.muted i {
+      color: #FF5F6D;
+    }
+
     @media (max-width: 380px) {
       .profile-text-link h1 { font-size: 1.4rem; }
       .avatar-link { width: 60px; height: 60px; }
       .grid-container { gap: 8px; }
       .link-item { padding: 14px 0; }
       .link-item i { font-size: 1.5rem; }
+      .music-control {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+        bottom: 15px;
+        right: 15px;
+      }
     }
 
     /* Экран старта */
@@ -413,33 +431,9 @@
         transform: translateY(0);
       }
     }
-
-    /* Плавающие частицы (декоративные) */
-    .particle {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      animation: float 15s infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(-100px) rotate(180deg); opacity: 0.8; }
-    }
   </style>
 </head>
 <body>
-
-<!-- Декоративные частицы -->
-<div class="particle" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
-<div class="particle" style="left: 30%; top: 60%; animation-delay: 2s;"></div>
-<div class="particle" style="left: 70%; top: 30%; animation-delay: 4s;"></div>
-<div class="particle" style="left: 85%; top: 70%; animation-delay: 6s;"></div>
-<div class="particle" style="left: 50%; top: 10%; animation-delay: 8s;"></div>
 
 <!-- Экран "Нажми, чтобы войти" -->
 <div id="start-screen">
@@ -453,6 +447,11 @@
   <source src="ltzyarik.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Кнопка управления музыкой -->
+<div class="music-control" id="music-toggle" title="Вкл/Выкл музыку">
+  <i class="fas fa-music"></i>
+</div>
+
 <div class="container">
   <!-- Профиль -->
   <div class="profile-card">
@@ -463,7 +462,9 @@
 
     <!-- Ник и юзернейм теперь тоже ссылка на t.me/kirismall -->
     <a href="https://t.me/kirismall" target="_blank" class="profile-text-link">
-      <h1>Безликий</h1>
+      <h1>
+        Безликий
+      </h1>
       <div class="username">@kirismall</div>
     </a>
   </div>
@@ -492,7 +493,7 @@
     </div>
   </a>
 
-  <!-- YouTube - теперь активная ссылка -->
+  <!-- YouTube - активная ссылка -->
   <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full">
     <i class="fab fa-youtube"></i>
     <span>YouTube</span>
@@ -502,16 +503,47 @@
 <script>
   const startScreen = document.getElementById('start-screen');
   const audio = document.getElementById('bg-music');
+  const musicToggle = document.getElementById('music-toggle');
 
   startScreen.addEventListener('click', () => {
     startScreen.classList.add('hidden');
 
-    // Запускаем музыку после клика
     if (audio) {
-      audio.play().catch((error) => {
+      audio.play().then(() => {
+        musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+        musicToggle.classList.remove('muted');
+      }).catch((error) => {
         console.log('Ошибка воспроизведения:', error);
       });
     }
+  });
+
+  musicToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    if (audio.paused) {
+      audio.play().then(() => {
+        musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+        musicToggle.classList.remove('muted');
+      }).catch((error) => {
+        console.log('Ошибка воспроизведения:', error);
+      });
+    } else {
+      audio.pause();
+      musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      musicToggle.classList.add('muted');
+    }
+  });
+
+  audio.addEventListener('pause', () => {
+    if (!audio.paused) return;
+    musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    musicToggle.classList.add('muted');
+  });
+
+  audio.addEventListener('play', () => {
+    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+    musicToggle.classList.remove('muted');
   });
 </script>
 

@@ -14,7 +14,6 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
-      /* Курсор — кружок */
       cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='rgba(255,215,0,0.15)' stroke='%23FFD700' stroke-width='2.5'/><circle cx='16' cy='16' r='6' fill='%23FFD700'/></svg>") 16 16, auto;
     }
 
@@ -51,7 +50,6 @@
       z-index: 1;
     }
 
-    /* Анимация появления элементов */
     .animate-item {
       opacity: 0;
       transform: translateY(30px);
@@ -63,15 +61,14 @@
       transform: translateY(0);
     }
 
-    /* Задержки для последовательного появления */
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
     .delay-4 { transition-delay: 0.4s; }
     .delay-5 { transition-delay: 0.5s; }
     .delay-6 { transition-delay: 0.6s; }
+    .delay-7 { transition-delay: 0.7s; }
 
-    /* Вся карточка профиля — одна ссылка */
     .profile-link {
       display: block;
       text-decoration: none;
@@ -101,7 +98,6 @@
       transform: scale(0.98);
     }
 
-    /* Аватарка */
     .avatar {
       width: 70px;
       height: 70px;
@@ -125,7 +121,6 @@
       object-fit: cover;
     }
 
-    /* Текст профиля */
     .profile-info {
       display: flex;
       flex-direction: column;
@@ -135,7 +130,6 @@
       font-size: 1.6rem;
       font-weight: 700;
       line-height: 1.2;
-      /* Фиолетовый градиент */
       background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -152,7 +146,6 @@
       margin-top: 2px;
     }
 
-    /* Сетка кнопок */
     .grid-container {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -224,7 +217,6 @@
     .link-item.tiktok i { color: #FF0050; }
     .link-item.youtube i { color: #FF0000; }
 
-    /* Блок "Проекты" */
     .projects-card {
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(12px);
@@ -283,14 +275,97 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
-    /* YouTube кнопка внизу */
+    .server-card {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 24px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .server-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .server-card:hover::before {
+      opacity: 1;
+    }
+
+    .server-card:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 215, 0, 0.6);
+    }
+
+    .server-card i {
+      font-size: 1.8rem;
+      color: #FFD700;
+      transition: transform 0.3s ease;
+    }
+
+    .server-card:hover i {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    .server-card .info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #FFD700;
+    }
+
+    .server-card .info p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .ip-badge {
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 12px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #FFD700;
+      display: inline-block;
+      margin-top: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .ip-badge:hover {
+      background: rgba(255, 215, 0, 0.25);
+    }
+
+    .ip-badge.copied {
+      background: rgba(0, 255, 100, 0.2);
+      border-color: rgba(0, 255, 100, 0.3);
+      color: #00FF64;
+    }
+
     .youtube-full {
       border-radius: 24px;
       padding: 16px;
       flex-direction: row;
       gap: 12px;
       justify-content: center;
-      margin-top: 16px;
+      margin-top: 0;
       width: 100%;
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(12px);
@@ -349,7 +424,6 @@
       50% { transform: scale(1.1); }
     }
 
-    /* Кнопка управления музыкой */
     .music-control {
       position: fixed;
       bottom: 20px;
@@ -406,7 +480,6 @@
       }
     }
 
-    /* Экран старта */
     #start-screen {
       position: fixed;
       inset: 0;
@@ -451,25 +524,21 @@
 </head>
 <body>
 
-<!-- Экран "Нажми, чтобы войти" -->
 <div id="start-screen">
   <div class="start-content">
     <h2>Нажми, чтобы войти</h2>
   </div>
 </div>
 
-<!-- Скрытый аудиоплеер с вашей песней -->
 <audio id="bg-music" loop preload="auto">
   <source src="ss6.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Кнопка управления музыкой -->
 <div class="music-control" id="music-toggle" title="Вкл/Выкл музыку">
   <i class="fas fa-music"></i>
 </div>
 
 <div class="container">
-  <!-- Профиль -->
   <a href="https://t.me/kirismall" target="_blank" class="profile-link animate-item delay-1" id="profile-item">
     <div class="avatar">
       <img src="https://i.pinimg.com/280x280_RS/9c/59/f1/9c59f1aaafc6c23c89d2a2b9f600b384.jpg" alt="Безликий">
@@ -480,7 +549,6 @@
     </div>
   </a>
 
-  <!-- Сетка соцсетей -->
   <div class="grid-container">
     <a href="https://t.me/news_yarik" target="_blank" class="link-item telegram animate-item delay-2" id="tgk-item">
       <i class="fab fa-telegram"></i>
@@ -498,7 +566,6 @@
     </a>
   </div>
 
-  <!-- Проекты -->
   <a href="https://t.me/projectsyarikru" target="_blank" class="projects-card animate-item delay-5" id="projects-item">
     <i class="fas fa-code-branch"></i>
     <div class="info">
@@ -507,8 +574,20 @@
     </div>
   </a>
 
-  <!-- YouTube -->
-  <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full animate-item delay-6" id="youtube-item">
+  <!-- Сервер EzhikMine с кнопкой копирования IP -->
+  <div class="server-card animate-item delay-6" id="server-item">
+    <i class="fas fa-cubes"></i>
+    <div class="info" style="flex:1;">
+      <h3>EzhikMine</h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">заходи на сервер</p>
+      <span class="ip-badge" id="ip-copy" onclick="copyIP(event)">
+        <i class="fas fa-copy" style="font-size:0.7rem; margin-right:4px;"></i>
+        yarik.ezhikmine.ru
+      </span>
+    </div>
+  </div>
+
+  <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full animate-item delay-7" id="youtube-item">
     <i class="fab fa-youtube"></i>
     <span>YouTube</span>
   </a>
@@ -519,13 +598,11 @@
   const audio = document.getElementById('bg-music');
   const musicToggle = document.getElementById('music-toggle');
 
-  // Элементы для анимации
   const animatedItems = document.querySelectorAll('.animate-item');
 
   startScreen.addEventListener('click', () => {
     startScreen.classList.add('hidden');
 
-    // Запускаем музыку
     if (audio) {
       audio.play().then(() => {
         musicToggle.innerHTML = '<i class="fas fa-music"></i>';
@@ -535,11 +612,10 @@
       });
     }
 
-    // Активируем анимацию появления элементов
     animatedItems.forEach((item, index) => {
       setTimeout(() => {
         item.classList.add('visible');
-      }, 100 + (index * 100)); // Каждый следующий элемент появляется на 100мс позже
+      }, 100 + (index * 100));
     });
   });
 
@@ -570,6 +646,50 @@
     musicToggle.innerHTML = '<i class="fas fa-music"></i>';
     musicToggle.classList.remove('muted');
   });
+
+  // Функция копирования IP в буфер обмена
+  function copyIP(event) {
+    event.stopPropagation();
+    const ip = 'yarik.ezhikmine.ru';
+    
+    // Используем современный API clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ip).then(() => {
+        showCopiedFeedback();
+      }).catch(() => {
+        fallbackCopy(ip);
+      });
+    } else {
+      fallbackCopy(ip);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showCopiedFeedback();
+    } catch (err) {
+      console.error('Ошибка копирования:', err);
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function showCopiedFeedback() {
+    const badge = document.getElementById('ip-copy');
+    const originalText = badge.innerHTML;
+    badge.innerHTML = '<i class="fas fa-check" style="font-size:0.7rem; margin-right:4px;"></i> скопировано!';
+    badge.classList.add('copied');
+    setTimeout(() => {
+      badge.innerHTML = originalText;
+      badge.classList.remove('copied');
+    }, 2000);
+  }
 </script>
 
 </body>

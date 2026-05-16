@@ -1,1 +1,859 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Безликий | Био-ссылки</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='rgba(255,215,0,0.15)' stroke='%23FFD700' stroke-width='2.5'/><circle cx='16' cy='16' r='6' fill='%23FFD700'/></svg>") 16 16, auto;
+    }
 
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('35f696dd807103ed5194e4d64dba8bef.jpg') no-repeat center center fixed;
+      background-size: cover;
+      padding: 20px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 200, 100, 0.05) 0%, transparent 70%);
+      animation: pulseGlow 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .animate-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .animate-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+    .delay-7 { transition-delay: 0.7s; }
+    .delay-8 { transition-delay: 0.8s; }
+
+    .profile-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .profile-link:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-link:active {
+      transform: scale(0.98);
+    }
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+      border-color: #FFD700;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-info h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-info .username {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .link-item {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 18px 0;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      color: white;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .link-item:hover::before {
+      opacity: 1;
+    }
+
+    .link-item:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .link-item:active {
+      transform: scale(0.96);
+    }
+
+    .link-item i {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #ffffff;
+      transition: transform 0.3s ease;
+    }
+
+    .link-item:hover i {
+      transform: scale(1.2);
+    }
+
+    .link-item span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .link-item.telegram i { color: #2AABEE; }
+    .link-item.vk i { color: #4A76A8; }
+    .link-item.tiktok i { color: #FF0050; }
+    .link-item.youtube i { color: #FF0000; }
+
+    .projects-card {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .projects-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 200, 100, 0.1), rgba(255, 150, 50, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .projects-card:hover::before {
+      opacity: 1;
+    }
+
+    .projects-card:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 200, 100, 0.4);
+    }
+
+    .projects-card i {
+      font-size: 1.8rem;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .projects-card:hover i {
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    .projects-card .info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .projects-card .info p {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .server-card {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 24px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .server-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .server-card:hover::before {
+      opacity: 1;
+    }
+
+    .server-card:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 215, 0, 0.6);
+    }
+
+    .server-card i {
+      font-size: 1.8rem;
+      color: #FFD700;
+      transition: transform 0.3s ease;
+    }
+
+    .server-card:hover i {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    .server-card .info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #FFD700;
+    }
+
+    .server-card .info p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .ip-badge {
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 12px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #FFD700;
+      display: inline-block;
+      margin-top: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .ip-badge:hover {
+      background: rgba(255, 215, 0, 0.25);
+    }
+
+    .ip-badge.copied {
+      background: rgba(0, 255, 100, 0.2);
+      border-color: rgba(0, 255, 100, 0.3);
+      color: #00FF64;
+    }
+
+    .youtube-full {
+      border-radius: 24px;
+      padding: 16px;
+      flex-direction: row;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .youtube-full::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .youtube-full:hover::before {
+      opacity: 1;
+    }
+
+    .youtube-full:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+      border-color: #FF0000;
+    }
+
+    .youtube-full:active {
+      transform: scale(0.96);
+    }
+
+    .youtube-full i {
+      font-size: 1.8rem;
+      color: #FF0000;
+      animation: pulse 2s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .youtube-full:hover i {
+      animation: pulse 0.8s ease-in-out infinite;
+    }
+
+    .youtube-full span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* ===== МЕНЮ ВИЗУАЛИЗАТОРА ===== */
+    .audio-menu {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      max-width: 90%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 16px 20px 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+    }
+
+    .audio-menu.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .visualizer-canvas {
+      width: 100%;
+      height: 40px;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .audio-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .audio-status {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .audio-status .status-on {
+      color: #8B5CF6;
+    }
+
+    .audio-status .status-off {
+      color: #FF5F6D;
+    }
+
+    .mute-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 4px 12px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .mute-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .mute-btn.muted {
+      border-color: rgba(255, 0, 0, 0.2);
+      color: #FF5F6D;
+    }
+
+    .mute-btn.muted:hover {
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    @media (max-width: 480px) {
+      .audio-menu {
+        width: 90%;
+        bottom: 20px;
+        padding: 12px 14px 10px;
+      }
+      .visualizer-canvas {
+        height: 30px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .profile-info h1 { font-size: 1.4rem; }
+      .avatar { width: 60px; height: 60px; }
+      .grid-container { gap: 8px; }
+      .link-item { padding: 14px 0; }
+      .link-item i { font-size: 1.5rem; }
+      .audio-menu {
+        padding: 10px 12px 8px;
+      }
+      .visualizer-canvas {
+        height: 25px;
+      }
+    }
+
+    #start-screen {
+      position: fixed;
+      inset: 0;
+      background: #0b0b0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 0.6s ease;
+    }
+
+    #start-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .start-content {
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .start-content h2 {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 500;
+      opacity: 0.8;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="start-screen">
+  <div class="start-content">
+    <h2>Нажми, чтобы войти</h2>
+  </div>
+</div>
+
+<audio id="bg-music" loop preload="auto">
+  <source src="ss6.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <a href="https://t.me/kirismall" target="_blank" class="profile-link animate-item delay-1" id="profile-item">
+    <div class="avatar">
+      <img src="https://i.pinimg.com/280x280_RS/9c/59/f1/9c59f1aaafc6c23c89d2a2b9f600b384.jpg" alt="Безликий">
+    </div>
+    <div class="profile-info">
+      <h1>Безликий</h1>
+      <div class="username">@kirismall</div>
+    </div>
+  </a>
+
+  <div class="grid-container">
+    <a href="https://t.me/news_yarik" target="_blank" class="link-item telegram animate-item delay-2" id="tgk-item">
+      <i class="fab fa-telegram"></i>
+      <span>тгк</span>
+    </a>
+
+    <a href="https://tiktok.com/@ltz_yarik" target="_blank" class="link-item tiktok animate-item delay-3" id="tiktok-item">
+      <i class="fab fa-tiktok"></i>
+      <span>тикток</span>
+    </a>
+
+    <a href="https://vk.com/show_yarik" target="_blank" class="link-item vk animate-item delay-4" id="vk-item">
+      <i class="fab fa-vk"></i>
+      <span>вк</span>
+    </a>
+  </div>
+
+  <a href="https://t.me/projectsyarikru" target="_blank" class="projects-card animate-item delay-5" id="projects-item">
+    <i class="fas fa-code-branch"></i>
+    <div class="info">
+      <h3>проекты</h3>
+      <p>посмотри мои последние проекты</p>
+    </div>
+  </a>
+
+  <div class="server-card animate-item delay-6" id="server-item">
+    <i class="fas fa-cubes"></i>
+    <div class="info" style="flex:1;">
+      <h3>EzhikMine</h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">заходи на сервер</p>
+      <span class="ip-badge" id="ip-copy" onclick="copyIP(event)">
+        <i class="fas fa-copy" style="font-size:0.7rem; margin-right:4px;"></i>
+        yarik.ezhikmine.ru
+      </span>
+    </div>
+  </div>
+
+  <a href="https://youtube.com/@ltz_yarik?si=LVGcTWqQJEInBW74" target="_blank" class="youtube-full animate-item delay-7" id="youtube-item">
+    <i class="fab fa-youtube"></i>
+    <span>YouTube</span>
+  </a>
+</div>
+
+<!-- ===== МЕНЮ ВИЗУАЛИЗАТОРА ===== -->
+<div class="audio-menu" id="audio-menu">
+  <canvas class="visualizer-canvas" id="visualizer-canvas"></canvas>
+  <div class="audio-controls">
+    <div class="audio-status">
+      audio: <span id="status-text" class="status-on">ON</span>
+    </div>
+    <button class="mute-btn" id="mute-btn">[ mute ]</button>
+  </div>
+</div>
+
+<script>
+  const startScreen = document.getElementById('start-screen');
+  const audio = document.getElementById('bg-music');
+  const animatedItems = document.querySelectorAll('.animate-item');
+  const audioMenu = document.getElementById('audio-menu');
+
+  // ================================
+  // СТАРТ
+  // ================================
+  startScreen.addEventListener('click', () => {
+    startScreen.classList.add('hidden');
+
+    if (audio) {
+      audio.play().then(() => {
+        updateAudioUI(true);
+      }).catch((error) => {
+        console.log('Ошибка воспроизведения:', error);
+      });
+    }
+
+    animatedItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add('visible');
+      }, 100 + (index * 100));
+    });
+
+    // Показываем меню визуализатора
+    setTimeout(() => {
+      audioMenu.classList.add('visible');
+    }, 500);
+  });
+
+  // ================================
+  // ВИЗУАЛИЗАТОР С ЧАСТОТОЙ
+  // ================================
+  const canvas = document.getElementById('visualizer-canvas');
+  const ctx = canvas.getContext('2d');
+  const statusText = document.getElementById('status-text');
+  const muteBtn = document.getElementById('mute-btn');
+
+  let audioContext, analyser, dataArray, source;
+  let animationId = null;
+  let isVisualizerActive = false;
+
+  function resizeCanvas() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = canvas.clientWidth * (window.devicePixelRatio || 1);
+    canvas.height = canvas.clientHeight * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+  }
+
+  function initVisualizer() {
+    if (!audio) return;
+    try {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 64;
+      analyser.smoothingTimeConstant = 0.8;
+      
+      source = audioContext.createMediaElementSource(audio);
+      source.connect(analyser);
+      analyser.connect(audioContext.destination);
+      
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      isVisualizerActive = true;
+      drawVisualizer();
+    } catch (e) {
+      console.log('Визуализатор не поддерживается:', e);
+    }
+  }
+
+  function drawVisualizer() {
+    if (!isVisualizerActive) return;
+    
+    animationId = requestAnimationFrame(drawVisualizer);
+    
+    analyser.getByteFrequencyData(dataArray);
+    
+    const width = canvas.width / (window.devicePixelRatio || 1);
+    const height = canvas.height / (window.devicePixelRatio || 1);
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    const barWidth = (width / dataArray.length) * 1.5;
+    let x = 0;
+    
+    for (let i = 0; i < dataArray.length; i++) {
+      const value = dataArray[i];
+      const barHeight = (value / 255) * height;
+      
+      // Фиолетовый градиент
+      const gradient = ctx.createLinearGradient(0, height, 0, 0);
+      gradient.addColorStop(0, 'rgba(139, 92, 246, 0.1)');
+      gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.7)');
+      gradient.addColorStop(1, 'rgba(139, 92, 246, 1)');
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(x, height - barHeight, barWidth - 1, barHeight);
+      
+      x += barWidth;
+    }
+  }
+
+  function updateAudioUI(isPlaying) {
+    if (isPlaying) {
+      statusText.textContent = 'ON';
+      statusText.className = 'status-on';
+      muteBtn.textContent = '[ mute ]';
+      muteBtn.classList.remove('muted');
+    } else {
+      statusText.textContent = 'OFF';
+      statusText.className = 'status-off';
+      muteBtn.textContent = '[ unmute ]';
+      muteBtn.classList.add('muted');
+    }
+  }
+
+  audio.addEventListener('play', () => {
+    updateAudioUI(true);
+    if (!audioContext) {
+      initVisualizer();
+    } else if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    isVisualizerActive = true;
+    drawVisualizer();
+  });
+
+  audio.addEventListener('pause', () => {
+    updateAudioUI(false);
+    isVisualizerActive = false;
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+    // Очищаем canvas при паузе
+    const width = canvas.width / (window.devicePixelRatio || 1);
+    const height = canvas.height / (window.devicePixelRatio || 1);
+    ctx.clearRect(0, 0, width, height);
+  });
+
+  muteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  // ================================
+  // КОПИРОВАНИЕ IP
+  // ================================
+  function copyIP(event) {
+    event.stopPropagation();
+    const ip = 'yarik.ezhikmine.ru';
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ip).then(() => {
+        showCopiedFeedback();
+      }).catch(() => {
+        fallbackCopy(ip);
+      });
+    } else {
+      fallbackCopy(ip);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showCopiedFeedback();
+    } catch (err) {
+      console.error('Ошибка копирования:', err);
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function showCopiedFeedback() {
+    const badge = document.getElementById('ip-copy');
+    const originalText = badge.innerHTML;
+    badge.innerHTML = '<i class="fas fa-check" style="font-size:0.7rem; margin-right:4px;"></i> скопировано!';
+    badge.classList.add('copied');
+    setTimeout(() => {
+      badge.innerHTML = originalText;
+      badge.classList.remove('copied');
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>

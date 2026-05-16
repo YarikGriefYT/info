@@ -1,0 +1,51 @@
+#vizBar {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+#vizBar.visible {
+  opacity: 1;
+}
+
+.bar-col {
+  width: 8px;
+  height: 6px;
+  border-radius: 999px;
+  transition: height 0.08s linear, opacity 0.12s ease;
+}
+
+@media (max-width: 480px) {
+  #vizBar {
+    width: 320px;
+    height: 30px;
+    gap: 3px;
+    bottom: 20px;
+  }
+  .bar-col {
+    width: 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  #vizBar {
+    width: 260px;
+    height: 25px;
+    gap: 2px;
+    bottom: 15px;
+  }
+  .bar-col {
+    width: 5px;
+  }
+}

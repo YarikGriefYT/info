@@ -52,7 +52,6 @@
       z-index: 1;
     }
 
-    /* ===== ПЛАВНАЯ АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
     .animate-item {
       opacity: 0;
       transform: translateY(40px) scale(0.95);
@@ -73,7 +72,6 @@
     .delay-7 { transition-delay: 0.7s; }
     .delay-8 { transition-delay: 0.8s; }
 
-    /* ===== 3D КНОПКИ ===== */
     .profile-link {
       display: block;
       text-decoration: none;
@@ -441,101 +439,57 @@
       50% { transform: scale(1.1); }
     }
 
-    /* ===== МЕНЮ ВИЗУАЛИЗАТОРА ===== */
-    .audio-menu {
-      width: 100%;
-      margin-top: 16px;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 215, 0, 0.08);
-      border-radius: 24px;
-      padding: 16px 20px 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 215, 0, 0.05);
-      display: none;
-      transition: all 0.4s ease;
-      transform: perspective(600px) rotateX(0deg) rotateY(0deg);
-    }
-
-    .audio-menu.visible {
-      display: block;
-    }
-
-    .audio-menu:hover {
-      border-color: rgba(255, 215, 0, 0.15);
-      transform: perspective(600px) rotateX(1deg) rotateY(2deg);
-    }
-
-    .visualizer-canvas {
-      width: 100%;
-      height: 50px;
-      display: block;
-      border-radius: 8px;
-    }
-
-    .audio-controls {
+    /* ===== ВИЗУАЛИЗАТОР (ваш CSS) ===== */
+    #vizBar {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 40px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
     }
 
-    .audio-status {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+    #vizBar.visible {
+      opacity: 1;
     }
 
-    .audio-status .status-on {
-      color: #FFD700;
+    .bar-col {
+      width: 8px;
+      height: 6px;
+      border-radius: 999px;
+      transition: height 0.08s linear, opacity 0.12s ease;
     }
 
-    .audio-status .status-off {
-      color: #FF5F6D;
-    }
-
-    .mute-btn {
-      background: transparent;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 8px;
-      padding: 4px 12px;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.65rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .mute-btn:hover {
-      background: rgba(255, 215, 0, 0.1);
-      border-color: rgba(255, 215, 0, 0.4);
-      transform: scale(1.05);
-    }
-
-    .mute-btn.muted {
-      border-color: rgba(255, 0, 0, 0.3);
-      color: #FF5F6D;
-    }
-
-    .mute-btn.muted:hover {
-      background: rgba(255, 0, 0, 0.15);
+    @media (max-width: 480px) {
+      #vizBar {
+        width: 320px;
+        height: 30px;
+        gap: 3px;
+        bottom: 20px;
+      }
+      .bar-col {
+        width: 6px;
+      }
     }
 
     @media (max-width: 380px) {
-      .profile-info h1 { font-size: 1.4rem; }
-      .avatar { width: 60px; height: 60px; }
-      .grid-container { gap: 8px; }
-      .link-item { padding: 14px 0; }
-      .link-item i { font-size: 1.5rem; }
-      .audio-menu { padding: 12px 14px 10px; }
-      .visualizer-canvas { height: 35px; }
+      #vizBar {
+        width: 260px;
+        height: 25px;
+        gap: 2px;
+        bottom: 15px;
+      }
+      .bar-col {
+        width: 5px;
+      }
     }
 
     /* ===== ЭКРАН ЗАГРУЗКИ ===== */
@@ -571,7 +525,6 @@
       opacity: 0.8;
     }
 
-    /* ===== АНИМАЦИЯ ЗАГРУЗКИ ===== */
     .loader {
       display: inline-block;
       position: relative;
@@ -699,13 +652,12 @@
 <!-- ===== ЭКРАН ВХОДА ===== -->
 <div id="enter-screen">
   <div class="enter-content">
-    <h2>Click to enter</h2>
+    <h2>Нажми, чтобы войти</h2>
   </div>
 </div>
 
-<audio id="bg-music" loop preload="auto">
-  <source src="ss6.mp3" type="audio/mpeg">
-</audio>
+<!-- ===== ВИЗУАЛИЗАТОР ===== -->
+<div id="vizBar"></div>
 
 <div class="container">
   <a href="https://t.me/kirismall" target="_blank" class="profile-link animate-item delay-1" id="profile-item">
@@ -759,24 +711,13 @@
     <i class="fab fa-youtube"></i>
     <span>YouTube</span>
   </a>
-
-  <!-- ===== МЕНЮ ВИЗУАЛИЗАТОРА ===== -->
-  <div class="audio-menu animate-item delay-8" id="audio-menu">
-    <canvas class="visualizer-canvas" id="visualizer-canvas"></canvas>
-    <div class="audio-controls">
-      <div class="audio-status">
-        audio: <span id="status-text" class="status-on">ON</span>
-      </div>
-      <button class="mute-btn" id="mute-btn">[ mute ]</button>
-    </div>
-  </div>
 </div>
 
 <script>
   const loadingScreen = document.getElementById('loading-screen');
   const enterScreen = document.getElementById('enter-screen');
-  const audio = document.getElementById('bg-music');
   const animatedItems = document.querySelectorAll('.animate-item');
+  const vizBar = document.getElementById('vizBar');
 
   // ================================
   // ЗАГРУЗКА → ЭКРАН ВХОДА
@@ -792,15 +733,6 @@
   enterScreen.addEventListener('click', () => {
     enterScreen.classList.add('hidden');
 
-    // Запускаем музыку
-    if (audio) {
-      audio.play().then(() => {
-        if (typeof updateAudioUI === 'function') updateAudioUI(true);
-      }).catch((error) => {
-        console.log('Ошибка воспроизведения:', error);
-      });
-    }
-
     // Активируем анимацию появления элементов
     animatedItems.forEach((item, index) => {
       setTimeout(() => {
@@ -808,133 +740,10 @@
       }, 100 + (index * 100));
     });
 
-    // Инициализация визуализатора после старта
+    // Показываем визуализатор
     setTimeout(() => {
-      if (!audio.paused) {
-        initVisualizer();
-        updateAudioUI(true);
-      }
+      vizBar.classList.add('visible');
     }, 500);
-  });
-
-  // ================================
-  // ВИЗУАЛИЗАТОР + УПРАВЛЕНИЕ
-  // ================================
-  const audioMenu = document.getElementById('audio-menu');
-  const canvas = document.getElementById('visualizer-canvas');
-  const ctx = canvas.getContext('2d');
-  const statusText = document.getElementById('status-text');
-  const muteBtn = document.getElementById('mute-btn');
-
-  let audioContext, analyser, dataArray, source;
-  let animationId = null;
-  let isVisualizerActive = false;
-
-  function resizeCanvas() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = canvas.clientWidth * (window.devicePixelRatio || 1);
-    canvas.height = canvas.clientHeight * (window.devicePixelRatio || 1);
-    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
-  }
-
-  function initVisualizer() {
-    if (!audio) return;
-    try {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      analyser = audioContext.createAnalyser();
-      analyser.fftSize = 64;
-      analyser.smoothingTimeConstant = 0.8;
-      
-      source = audioContext.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-      
-      dataArray = new Uint8Array(analyser.frequencyBinCount);
-      
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-      
-      audioMenu.classList.add('visible');
-      isVisualizerActive = true;
-      drawVisualizer();
-    } catch (e) {
-      console.log('Визуализатор не поддерживается:', e);
-    }
-  }
-
-  function drawVisualizer() {
-    if (!isVisualizerActive) return;
-    
-    animationId = requestAnimationFrame(drawVisualizer);
-    
-    analyser.getByteFrequencyData(dataArray);
-    
-    const width = canvas.width / (window.devicePixelRatio || 1);
-    const height = canvas.height / (window.devicePixelRatio || 1);
-    
-    ctx.clearRect(0, 0, width, height);
-    
-    const barWidth = (width / dataArray.length) * 1.5;
-    let x = 0;
-    
-    for (let i = 0; i < dataArray.length; i++) {
-      const value = dataArray[i];
-      const barHeight = (value / 255) * height;
-      
-      // Золотой градиент для визуализатора
-      const gradient = ctx.createLinearGradient(0, height, 0, 0);
-      gradient.addColorStop(0, 'rgba(255, 215, 0, 0.1)');
-      gradient.addColorStop(0.5, 'rgba(255, 215, 0, 0.7)');
-      gradient.addColorStop(1, 'rgba(255, 215, 0, 1)');
-      
-      ctx.fillStyle = gradient;
-      ctx.fillRect(x, height - barHeight, barWidth - 1, barHeight);
-      
-      x += barWidth;
-    }
-  }
-
-  function updateAudioUI(isPlaying) {
-    if (isPlaying) {
-      statusText.textContent = 'ON';
-      statusText.className = 'status-on';
-      muteBtn.textContent = '[ mute ]';
-      muteBtn.classList.remove('muted');
-    } else {
-      statusText.textContent = 'OFF';
-      statusText.className = 'status-off';
-      muteBtn.textContent = '[ unmute ]';
-      muteBtn.classList.add('muted');
-    }
-  }
-
-  audio.addEventListener('play', () => {
-    updateAudioUI(true);
-    if (!audioContext) {
-      initVisualizer();
-    } else if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-    isVisualizerActive = true;
-    drawVisualizer();
-  });
-
-  audio.addEventListener('pause', () => {
-    updateAudioUI(false);
-    isVisualizerActive = false;
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-      animationId = null;
-    }
-  });
-
-  muteBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
   });
 
   // ================================
@@ -983,5 +792,69 @@
   }
 </script>
 
+<!-- ===== ВАШ ВИЗУАЛИЗАТОР ===== -->
+<script>
+  const audio = new Audio('background.mp3');
+  audio.loop = true;
+
+  const ctx = new AudioContext();
+  const src = ctx.createMediaElementSource(audio);
+
+  const analyser = ctx.createAnalyser();
+  analyser.fftSize = 256;
+
+  src.connect(analyser);
+  analyser.connect(ctx.destination);
+
+  const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+  document.addEventListener('click', async () => {
+    await ctx.resume();
+    audio.play();
+  }, { once: true });
+
+  const vizBar = document.getElementById('vizBar');
+
+  const BAR_N = 32;
+  const barEls = [];
+
+  for (let i = 0; i < BAR_N; i++) {
+    const el = document.createElement('div');
+
+    el.className = 'bar-col';
+
+    const t = i / (BAR_N - 1);
+
+    const r = Math.round(80 + t * 80);
+    const g = Math.round(40 + t * 60);
+    const b = Math.round(180 + t * 75);
+
+    el.style.background = `rgb(${r},${g},${b})`;
+    el.style.boxShadow = `0 0 6px rgba(${r},${g},${b},0.6)`;
+
+    vizBar.appendChild(el);
+    barEls.push(el);
+  }
+
+  function updateBars() {
+    requestAnimationFrame(updateBars);
+
+    analyser.getByteFrequencyData(dataArray);
+
+    for (let i = 0; i < BAR_N; i++) {
+      const idx = (i / BAR_N * dataArray.length) | 0;
+
+      const value = dataArray[idx] / 255;
+
+      const height = 4 + value * 32;
+
+      barEls[i].style.height = height + 'px';
+      barEls[i].style.opacity = 0.4 + value;
+    }
+  }
+
+  updateBars();
+</script>
+
 </body>
-        </html>
+</html>

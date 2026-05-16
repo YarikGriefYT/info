@@ -426,7 +426,7 @@
     /* ===== МЕНЮ ВИЗУАЛИЗАТОРА ===== */
     .audio-menu {
       position: fixed;
-      bottom: 30px;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       width: 420px;
@@ -514,7 +514,7 @@
     @media (max-width: 480px) {
       .audio-menu {
         width: 90%;
-        bottom: 20px;
+        bottom: 70px;
         padding: 12px 14px 10px;
       }
       .visualizer-canvas {
@@ -530,13 +530,15 @@
       .link-item i { font-size: 1.5rem; }
       .audio-menu {
         padding: 10px 12px 8px;
+        bottom: 60px;
       }
       .visualizer-canvas {
         height: 25px;
       }
     }
 
-    #start-screen {
+    /* ===== ЗАГРУЗОЧНЫЙ ЭКРАН ===== */
+    #loading-screen {
       position: fixed;
       inset: 0;
       background: #0b0b0b;
@@ -544,26 +546,117 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      cursor: pointer;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.8s ease;
     }
 
-    #start-screen.hidden {
+    #loading-screen.hidden {
       opacity: 0;
       pointer-events: none;
     }
 
-    .start-content {
+    .loading-content {
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
       animation: fadeInUp 0.8s ease;
     }
 
-    .start-content h2 {
-      color: white;
-      font-size: 1.2rem;
+    .loader-ring {
+      width: 60px;
+      height: 60px;
+      position: relative;
+    }
+
+    .loader-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .loader-ring::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #8B5CF6;
+      border-right-color: #8B5CF6;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: rgba(139, 92, 246, 0.6);
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ===== ЭКРАН ВХОДА ===== */
+    #enter-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 11, 11, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9998;
+      cursor: pointer;
+      transition: opacity 0.6s ease;
+    }
+
+    #enter-screen.visible {
+      display: flex;
+    }
+
+    #enter-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .enter-content {
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .enter-content .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 20px;
+      background: #8B5CF6;
+      animation: blink 1s step-end infinite;
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    }
+
+    .enter-content .text {
+      color: #8B5CF6;
+      font-size: 0.8rem;
       font-weight: 500;
-      opacity: 0.8;
-      animation: pulse 2s ease-in-out infinite;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      text-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     @keyframes fadeInUp {
@@ -580,9 +673,19 @@
 </head>
 <body>
 
-<div id="start-screen">
-  <div class="start-content">
-    <h2>Нажми, чтобы войти</h2>
+<!-- ===== ЗАГРУЗОЧНЫЙ ЭКРАН ===== -->
+<div id="loading-screen">
+  <div class="loading-content">
+    <div class="loader-ring"></div>
+    <div class="loading-text">Loading assets...</div>
+  </div>
+</div>
+
+<!-- ===== ЭКРАН ВХОДА ===== -->
+<div id="enter-screen">
+  <div class="enter-content">
+    <span class="cursor"></span>
+    <span class="text">Click to enter</span>
   </div>
 </div>
 
@@ -656,16 +759,25 @@
 </div>
 
 <script>
-  const startScreen = document.getElementById('start-screen');
+  const loadingScreen = document.getElementById('loading-screen');
+  const enterScreen = document.getElementById('enter-screen');
   const audio = document.getElementById('bg-music');
   const animatedItems = document.querySelectorAll('.animate-item');
   const audioMenu = document.getElementById('audio-menu');
 
   // ================================
-  // СТАРТ
+  // ЗАГРУЗКА → ЭКРАН ВХОДА
   // ================================
-  startScreen.addEventListener('click', () => {
-    startScreen.classList.add('hidden');
+  setTimeout(() => {
+    loadingScreen.classList.add('hidden');
+    enterScreen.classList.add('visible');
+  }, 3000);
+
+  // ================================
+  // КЛИК НА ЭКРАН ВХОДА
+  // ================================
+  enterScreen.addEventListener('click', () => {
+    enterScreen.classList.add('hidden');
 
     if (audio) {
       audio.play().then(() => {
@@ -681,7 +793,6 @@
       }, 100 + (index * 100));
     });
 
-    // Показываем меню визуализатора
     setTimeout(() => {
       audioMenu.classList.add('visible');
     }, 500);
@@ -749,7 +860,6 @@
       const value = dataArray[i];
       const barHeight = (value / 255) * height;
       
-      // Фиолетовый градиент
       const gradient = ctx.createLinearGradient(0, height, 0, 0);
       gradient.addColorStop(0, 'rgba(139, 92, 246, 0.1)');
       gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.7)');
@@ -794,7 +904,6 @@
       cancelAnimationFrame(animationId);
       animationId = null;
     }
-    // Очищаем canvas при паузе
     const width = canvas.width / (window.devicePixelRatio || 1);
     const height = canvas.height / (window.devicePixelRatio || 1);
     ctx.clearRect(0, 0, width, height);
@@ -856,4 +965,4 @@
 </script>
 
 </body>
-</html>
+  </html>
